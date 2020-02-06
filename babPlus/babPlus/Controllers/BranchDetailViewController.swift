@@ -12,12 +12,18 @@ import MapKit
 class BranchDetailViewController: UIViewController {
     
     private let backButtonItem = UINavigationItem()
-    private let mapView = MKMapView()
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon), span: span)
+        mapView.setRegion(region, animated: true)
+        return mapView
+    }()
     private let mapContainerView = UIView()
-    private let menuTableView = UITableView()
+    private let menuTableView = UITableView(frame: .zero, style: .grouped)
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = self.APPDELEGATE.dummy?.date as! String
+        label.text = self.APPDELEGATE.dummy?.date
         label.textAlignment = .right
         label.textColor = .darkGray
         return label
@@ -28,7 +34,7 @@ class BranchDetailViewController: UIViewController {
     
     var receiveAddress = ""
     var receiveBranchName = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = receiveBranchName
@@ -39,6 +45,11 @@ class BranchDetailViewController: UIViewController {
     
     @objc private func didTapBackButtonItem(_ sender : Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupPin()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -52,7 +63,6 @@ extension BranchDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionCheck = section == 0 ? menuArray!.menus.launch.count : menuArray!.menus.dinner.count
         return sectionCheck
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,7 +88,6 @@ extension BranchDetailViewController: UITableViewDataSource {
         } else {
             cell.textLabel?.text = menuArray!.menus.dinner[indexPath.row]
         }
-        
         return cell
     }
 }
@@ -86,28 +95,33 @@ extension BranchDetailViewController: UITableViewDataSource {
 
 // MARK: - mapViewPin
 extension BranchDetailViewController {
-    
-    func geocodeAddressString(_ addressString: String) {
-        print("\n---------- [ 주소 -> 위경도 ] ----------")
+    private func setupPin() {
+//        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(addressString) { (placeMark, error) in
+        let pinPoint = MKPointAnnotation()
+        
+        geocoder.geocodeAddressString(receiveAddress) { (placeMark, error) in
             if error != nil {
                 return print(error!.localizedDescription)
             }
             guard let place = placeMark?.first else { return }
-            print(place)
             
-            // 위경도값 가져오기
-            //      print(place.location?.coordinate)
+            pinPoint.title = self.receiveBranchName
+            pinPoint.coordinate = place.location!.coordinate
+            
+            self.mapView.addAnnotation(pinPoint)
+            
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(place.location!.coordinate.latitude, place.location!.coordinate.longitude), span: span)
+            self.mapView.setRegion(region, animated: true)
         }
     }
     
-//    let location = CLLocationCoordinate2D(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
-
 }
 
 // MARK: - Setup UI
 extension BranchDetailViewController {
+    
     private func setupMapView() {
         let safeArea = view.safeAreaLayoutGuide
         let mapSize = self.view.frame.height * 0.3
@@ -119,10 +133,6 @@ extension BranchDetailViewController {
         view.addSubview(mapContainerView)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         mapContainerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon), span: span)
-        mapView.setRegion(region, animated: true)
         
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(equalTo: safeArea.topAnchor),
