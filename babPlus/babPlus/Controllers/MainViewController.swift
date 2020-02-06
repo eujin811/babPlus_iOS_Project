@@ -19,12 +19,10 @@ class MainViewController: UIViewController {
     
     private var contents:BabMenu?
     private var branchList = [String]()
-//  private let branchImagesURL = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
     private var branchImagesURL = [String]()
     
     lazy var itemCount = branchImagesURL.count
     
-    //    var tempData: BabMenu?
     
     
     override func viewDidLoad() {
@@ -36,9 +34,24 @@ class MainViewController: UIViewController {
         setupCollectionView()
         
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        branchList.removeAll()
+        branchImagesURL.removeAll()
+        
+        requestData()
+        
+        itemCount = branchImagesURL.count
+        
+        collectionView.reloadData()
+        
+    }
+    
     private func requestData() {
         let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        contents = APPDELEGATE.dummy!.self as! BabMenu
+        contents = APPDELEGATE.dummy!.self
         
         let keys = contents?.contents.keys
         
@@ -48,11 +61,9 @@ class MainViewController: UIViewController {
         
         //imageURL
         branchList.forEach {
-            print("contents?.content[$0].image",contents?.contents[$0]?.image)
             branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
         }
         
-        print("branchList: \(branchList)")
     }
     
     
@@ -94,8 +105,12 @@ class MainViewController: UIViewController {
     }
 }
 
+
+// MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("-----------numberOfItemInSection---------------")
+        print("itemCount \(itemCount)")
         return itemCount
     }
     
@@ -104,11 +119,9 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainBranchCollectionViewCell.identifier, for: indexPath) as! MainBranchCollectionViewCell
         cell.backgroundColor = .white
         
-
-
         cell.configure(branchImageURL: branchImagesURL[indexPath.item], branchName: branchList[indexPath.item])
-        
-        
+        print("--------------cellForItemAt---------------")
+        print("branchImageURL: \(branchImagesURL), branchName: \(branchList)")
         return cell
     }
     
@@ -121,12 +134,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         
         let branchDetailVC = BranchDetailViewController()
         branchDetailVC.modalPresentationStyle = .fullScreen
-        //        present(branchDetailVC ,animated: true)
         
-        /*
-         let receiveAddress = ""
-         let receiveBranchName = ""
-         */
         branchDetailVC.receiveBranchName = branchList[indexPath.item]
         branchDetailVC.receiveAddress = (contents?.contents[branchList[indexPath.item]]?.address)!
         self.navigationController?.pushViewController(branchDetailVC, animated: true)
@@ -135,8 +143,47 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = searchBar.text else { return }
-        print(searchText)
+        
     }
+    
+    // MARK: - searchBar 검색
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        
+        
+        if searchText.count >= 2 {
+            print(searchText)
+            print(searchText.count)
+            
+            var swapList = [String]()
+            
+            print("branchList.contains",branchList.contains(searchText))
+            
+            //            branchList.forEach {
+            contents!.contents.keys.forEach {
+                print("branchList forEach",$0.contains(searchText))
+                if $0.contains(searchText) {
+                    swapList.append($0)
+                }
+            }
+            
+            branchList.removeAll()
+            branchImagesURL.removeAll()
+            swapList.forEach {
+                branchList.append($0)
+                branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
+            }
+            
+            itemCount = branchImagesURL.count
+            
+            print("branchList : \(branchList) \n branchImageURL: \(branchImagesURL)")
+            collectionView.reloadData()
+            //branchImagesURL
+            
+            
+        }
+    }
+    
 }
