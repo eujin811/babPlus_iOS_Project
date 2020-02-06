@@ -18,7 +18,7 @@ struct BabMenu: Decodable {
 struct Content: Codable {
     let image: String?
     let address: String
-    let menus: [Menu]
+    let menus: Menu
 }
 
 // MARK: - Menu

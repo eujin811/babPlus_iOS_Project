@@ -18,7 +18,9 @@ class MainViewController: UIViewController {
     
     
     private var contents:BabMenu?
-    private let branchImages = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
+    private var branchList = [String]()
+//    private let branchImages = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
+    private let branchImages = [String]()
     
     lazy var itemCount = branchImages.count
     
@@ -28,19 +30,42 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        requestData()
 
-        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        contents = APPDELEGATE.dummy!.self as! BabMenu
-        
-//        print("data:",APPDELEGATE.dummy!.self)
-        print("data:",contents?.contents)
-//        print("branchNAme:",contents?.contents.)
-        
-        //
 //        request()
         searchBarSet()
         setupCollectionView()
         
+    }
+    private func requestData() {
+        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+        contents = APPDELEGATE.dummy!.self as! BabMenu
+        
+        
+        
+        let keys = contents?.contents.keys
+        print("contents",contents?.contents)
+        
+        keys?.forEach {
+            branchList.append($0)
+        }
+//        let contentsBody = contents?.contents.index(forKey: branchList[0])
+        var contentsBody = contents?.contents["세종타워점"]
+//        var contentsBody2 = contents?.contents[branchList[0]]
+        
+//        contents?.contents.forEach {
+//            print("\n content?.contents \($0)")
+//        }
+        
+        branchList.forEach {
+            print("contents?.content[$0].image",contents?.contents[$0]?.image)
+            
+        }
+        
+
+        print("branchList[0]의 contents",contentsBody,"\n type: ",type(of: contentsBody))
+
+        print("branchList: \(branchList)")
     }
     
 //    private func request() {
@@ -109,7 +134,9 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainBranchCollectionViewCell.identifier, for: indexPath) as! MainBranchCollectionViewCell
         cell.backgroundColor = .white
         
-        cell.configure(branchImage: UIImage(named: branchImages[indexPath.item]), branchName: branchImages[indexPath.item])
+//                cell.configure(branchImage: UIImage(named: branchImages[indexPath.item]), branchName: branchImages[indexPath.item])
+
+        cell.configure(branchImage: UIImage(named: branchImages[indexPath.item]), branchName: branchList[indexPath.item])
         
         
         return cell
