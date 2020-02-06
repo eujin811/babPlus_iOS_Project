@@ -38,16 +38,10 @@ class MainViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         
-        branchList.removeAll()
-        branchImagesURL.removeAll()
-        
-        requestData()
-        
-        itemCount = branchImagesURL.count
-        
-        collectionView.reloadData()
+        collectionViewInitialization()
         
     }
+    
     
     private func requestData() {
         let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
@@ -66,11 +60,21 @@ class MainViewController: UIViewController {
         
     }
     
+    // MARK: - collectionView 초기화
+    private func collectionViewInitialization() {
+        branchList.removeAll()
+        branchImagesURL.removeAll()
+        
+        requestData()
+        
+        itemCount = branchImagesURL.count
+        
+        collectionView.reloadData()
+    }
     
     
     private func searchBarSet() {
-        //        searchController.searchBar.tintColor = .init(red: 255, green: 246, blue: 18, alpha: 1)
-        //        searchController.searchBar.placeholder = "상호명을 검색하세요."
+
         searchController.searchBar.delegate = self
         self.navigationItem.searchController = searchController
     }
@@ -184,6 +188,11 @@ extension MainViewController: UISearchBarDelegate {
             
             
         }
+    }
+    
+    // MARK: - cancel
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        collectionViewInitialization()
     }
     
 }
