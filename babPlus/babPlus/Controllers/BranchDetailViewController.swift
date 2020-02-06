@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 class BranchDetailViewController: UIViewController {
-    private let customHeight: CGFloat = 50
     private let backButtonItem = UINavigationItem()
     private let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -20,12 +19,13 @@ class BranchDetailViewController: UIViewController {
     }()
     private let mapContainerView = UIView()
     private let menuTableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.rowHeight = 50
         tableView.sectionHeaderHeight = 60
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        
         return tableView
     }()
     
@@ -37,6 +37,7 @@ class BranchDetailViewController: UIViewController {
         return label
     }()
     
+    private let customHeight: CGFloat = 50
     private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
     lazy var menuArray = APPDELEGATE.dummy?.contents[receiveBranchName]
     
@@ -45,7 +46,6 @@ class BranchDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = receiveBranchName
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lessthan"), style: .plain, target: self, action: #selector(didTapBackButtonItem(_:)))
@@ -65,6 +65,7 @@ class BranchDetailViewController: UIViewController {
         super.viewDidDisappear(true)
         receiveBranchName = ""
         receiveAddress = ""
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -76,6 +77,7 @@ extension BranchDetailViewController: UITableViewDelegate {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let blurView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let titleLabel = UILabel(frame: CGRect(x: imageView.center.x - 50, y: imageView.center.y - 15, width: 100, height: 30))
+        
         if section == 0 {
             titleLabel.text = "Lunch"
             imageView.image = UIImage(named: "lunch_image")
@@ -86,15 +88,11 @@ extension BranchDetailViewController: UITableViewDelegate {
             blurView.alpha = 0.6
         }
         
-        
-        
         titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 23, weight: .bold)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
         blurView.backgroundColor = .darkGray
-        
         
         imageView.addSubview(blurView)
         imageView.addSubview(titleLabel)
