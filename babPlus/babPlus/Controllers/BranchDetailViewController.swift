@@ -10,17 +10,25 @@ import UIKit
 import MapKit
 
 class BranchDetailViewController: UIViewController {
-    
+    private let customHeight: CGFloat = 50
     private let backButtonItem = UINavigationItem()
     private let mapView: MKMapView = {
         let mapView = MKMapView()
-        
         let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon), span: span)
         mapView.setRegion(region, animated: true)
         return mapView
     }()
     private let mapContainerView = UIView()
-    private let menuTableView = UITableView(frame: .zero, style: .grouped)
+    private let menuTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = 50
+        tableView.sectionHeaderHeight = 60
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
     lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.text = self.APPDELEGATE.dummy?.date
@@ -37,6 +45,7 @@ class BranchDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.title = receiveBranchName
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lessthan"), style: .plain, target: self, action: #selector(didTapBackButtonItem(_:)))
@@ -59,6 +68,44 @@ class BranchDetailViewController: UIViewController {
     }
 }
 
+extension BranchDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let height = tableView.sectionHeaderHeight
+        let width = tableView.frame.width
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let blurView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let titleLabel = UILabel(frame: CGRect(x: imageView.center.x - 50, y: imageView.center.y - 15, width: 100, height: 30))
+        if section == 0 {
+            titleLabel.text = "Lunch"
+            imageView.image = UIImage(named: "lunch_image")
+            blurView.alpha = 0.5
+        } else {
+            titleLabel.text = "Dinner"
+            imageView.image = UIImage(named: "dinner_image")
+            blurView.alpha = 0.6
+        }
+        
+        
+        
+        titleLabel.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 23, weight: .bold)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        blurView.backgroundColor = .darkGray
+        
+        
+        imageView.addSubview(blurView)
+        imageView.addSubview(titleLabel)
+        headerView.addSubview(imageView)
+
+        return headerView
+    }
+
+}
+
+//MARK: - TableViewDelegate
 extension BranchDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionCheck = section == 0 ? menuArray!.menus.launch.count : menuArray!.menus.dinner.count
@@ -76,18 +123,14 @@ extension BranchDetailViewController: UITableViewDataSource {
         return sectionCount
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionOfString = section == 0 ? "점심" : "저녁"
-        return sectionOfString
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "qwe") ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
         if indexPath.section == 0 {
             cell.textLabel?.text = menuArray!.menus.launch[indexPath.row]
         } else {
             cell.textLabel?.text = menuArray!.menus.dinner[indexPath.row]
         }
+        cell.textLabel?.font = .systemFont(ofSize: 20)
         return cell
     }
 }
@@ -96,8 +139,6 @@ extension BranchDetailViewController: UITableViewDataSource {
 // MARK: - mapViewPin
 extension BranchDetailViewController {
     private func setupPin() {
-//        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        
         let geocoder = CLGeocoder()
         let pinPoint = MKPointAnnotation()
         
@@ -171,5 +212,6 @@ extension BranchDetailViewController {
         setupMapView()
         setupTableView()
         menuTableView.dataSource = self
+        menuTableView.delegate = self
     }
 }
