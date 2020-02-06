@@ -115,8 +115,6 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     
-    
-    
 }
 
 // MAKR: UICollectionViewDelegateFlowLayout
@@ -131,7 +129,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
          let receiveAddress = ""
          let receiveBranchName = ""
          */
-        
+        branchDetailVC.receiveBranchName = branchList[indexPath.item]
+        branchDetailVC.receiveAddress = (contents?.contents[branchList[indexPath.item]]?.address)!
         self.navigationController?.pushViewController(branchDetailVC, animated: true)
     }
 }

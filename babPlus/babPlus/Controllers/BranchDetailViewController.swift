@@ -26,8 +26,9 @@ class BranchDetailViewController: UIViewController {
     private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
     lazy var menuArray = APPDELEGATE.dummy?.contents["코오롱디지털타워3차점"]
     
-    let receiveAddress = "주소주소주소"
-    let receiveBranchName = "코오롱디지털타워3차점"
+    var receiveAddress = "주소주소주소"
+    var receiveBranchName = "코오롱디지털타워3차점"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = receiveBranchName
