@@ -82,6 +82,7 @@ extension BranchDetailViewController: UITableViewDataSource {
 // MARK: - mapViewPin
 //extension BranchDetailViewController {
 //    let location = CLLocationCoordinate2D(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+
 //}
 
 // MARK: - Setup UI
