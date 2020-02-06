@@ -15,19 +15,30 @@ class BranchDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let mapContainerView = UIView()
     private let menuTableView = UITableView()
-    private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-    lazy var menuArray = APPDELEGATE.dummy?.contents["메타모르포점"]
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = self.APPDELEGATE.dummy?.date as! String
+        label.textAlignment = .right
+        label.textColor = .darkGray
+        return label
+    }()
     
+    private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+    lazy var menuArray = APPDELEGATE.dummy?.contents["코오롱디지털타워3차점"]
+    
+    let receiveAddress = "주소주소주소"
+    let receiveBranchName = "코오롱디지털타워3차점"
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = receiveBranchName
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lessthan"), style: .plain, target: self, action: #selector(didTapBackButtonItem(_:)))
         setupUI()
     }
     
     @objc private func didTapBackButtonItem(_ sender : Any) {
-        dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
+//        dismiss(animated: true)
     }
     
 }
@@ -40,7 +51,14 @@ extension BranchDetailViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        var sectionCount = 0
+        if !menuArray!.menus.launch.isEmpty {
+            sectionCount += 1
+        }
+        if !menuArray!.menus.dinner.isEmpty {
+            sectionCount += 1
+        }
+        return sectionCount
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -60,17 +78,25 @@ extension BranchDetailViewController: UITableViewDataSource {
     }
 }
 
+
+// MARK: - mapViewPin
+//extension BranchDetailViewController {
+//    let location = CLLocationCoordinate2D(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+//}
+
 // MARK: - Setup UI
 extension BranchDetailViewController {
-    
     private func setupMapView() {
         let safeArea = view.safeAreaLayoutGuide
         let mapSize = self.view.frame.height * 0.3
-        mapContainerView.addSubview(mapView)
+        [mapView].forEach {
+            mapContainerView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        mapView.addSubview(dateLabel)
         view.addSubview(mapContainerView)
-        
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         mapContainerView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.translatesAutoresizingMaskIntoConstraints = false
         
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon), span: span)
@@ -82,10 +108,14 @@ extension BranchDetailViewController {
             mapContainerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             mapContainerView.heightAnchor.constraint(equalToConstant: mapSize),
             
-            mapView.centerXAnchor.constraint(equalTo: mapContainerView.centerXAnchor),
-            mapView.centerYAnchor.constraint(equalTo: mapContainerView.centerYAnchor),
-            mapView.widthAnchor.constraint(equalToConstant: mapSize * 1.2),
-            mapView.heightAnchor.constraint(equalToConstant: mapSize * 0.9),
+            dateLabel.topAnchor.constraint(equalTo: mapView.topAnchor),
+            dateLabel.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            
+            mapView.bottomAnchor.constraint(equalTo: mapContainerView.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: mapContainerView.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: mapContainerView.trailingAnchor),
+            mapView.heightAnchor.constraint(equalToConstant: mapSize * 1),
+            
         ])
     }
     
