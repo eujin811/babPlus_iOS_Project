@@ -41,7 +41,6 @@ class MainViewController: UIViewController {
         contents = APPDELEGATE.dummy!.self as! BabMenu
         
         let keys = contents?.contents.keys
-        print("contents",contents?.contents)
         
         keys?.forEach {
             branchList.append($0)
@@ -50,7 +49,6 @@ class MainViewController: UIViewController {
         //imageURL
         branchList.forEach {
             print("contents?.content[$0].image",contents?.contents[$0]?.image)
-            print("image type ",type(of: contents?.contents[$0]?.image))
             branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
         }
         
