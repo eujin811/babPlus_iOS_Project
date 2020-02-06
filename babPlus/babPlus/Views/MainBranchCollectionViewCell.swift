@@ -12,6 +12,8 @@ class MainBranchCollectionViewCell: UICollectionViewCell {
     static let identifier = "MainBranchCell"
     
     private let branchImage = UIImageView()
+//    private let branchImage = UIImageView().image = UIImage(named: "babPlusLogo")
+
     private let branchName = UILabel()
     
     override init(frame: CGRect) {
@@ -78,7 +80,7 @@ class MainBranchCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(branchImage image: UIImage?, branchName name: String) {
-        branchImage.image = image
+        branchImage.image = image ?? (UIImage(named: "logo"))
         branchName.text = name
     }
     
