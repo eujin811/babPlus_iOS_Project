@@ -15,9 +15,12 @@ class BranchDetailViewController: UIViewController {
     private let mapView = MKMapView()
     private let mapContainerView = UIView()
     private let menuTableView = UITableView()
+    private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+    lazy var menuArray = APPDELEGATE.dummy?.contents["메타모르포점"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "lessthan"), style: .plain, target: self, action: #selector(didTapBackButtonItem(_:)))
         setupUI()
@@ -31,11 +34,29 @@ class BranchDetailViewController: UIViewController {
 
 extension BranchDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let sectionCheck = section == 0 ? menuArray!.menus.launch.count : menuArray!.menus.dinner.count
+        return sectionCheck
+        
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionOfString = section == 0 ? "점심" : "저녁"
+        return sectionOfString
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "qwe") ?? UITableViewCell()
+        if indexPath.section == 0 {
+            cell.textLabel?.text = menuArray!.menus.launch[indexPath.row]
+        } else {
+            cell.textLabel?.text = menuArray!.menus.dinner[indexPath.row]
+        }
+        
+        return cell
     }
 }
 
@@ -54,7 +75,7 @@ extension BranchDetailViewController {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon), span: span)
         mapView.setRegion(region, animated: true)
-    
+        
         NSLayoutConstraint.activate([
             mapContainerView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             mapContainerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),

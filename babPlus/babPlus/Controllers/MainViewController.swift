@@ -29,11 +29,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
 
-        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        contents = APPDELEGATE.dummy!.self as! BabMenu
+//        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+//        contents = APPDELEGATE.dummy!.self as! BabMenu
         
 //        print("data:",APPDELEGATE.dummy!.self)
-        print("data:",contents?.contents)
+//        print("data:",contents?.contents)
 //        print("branchNAme:",contents?.contents.)
         
         //

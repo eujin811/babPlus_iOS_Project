@@ -14,14 +14,13 @@ struct BabMenu: Decodable {
     let contents: [String: Content]
 }
 
-// MARK: - Content
 struct Content: Codable {
     let image: String?
     let address: String
-    let menus: [Menu]
+    let menus: Menus
 }
 
 // MARK: - Menu
-struct Menu: Codable {
+struct Menus: Codable {
     let launch, dinner: [String]
 }

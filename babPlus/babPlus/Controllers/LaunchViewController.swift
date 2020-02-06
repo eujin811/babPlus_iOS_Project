@@ -34,8 +34,8 @@ class LaunchViewController: UIViewController {
             DispatchQueue.main.async {
                 self.APPDELEGATE.window?.rootViewController = tabBarController
             }
-            
-            
+
+
         }
         
         
