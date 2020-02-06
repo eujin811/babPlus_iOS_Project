@@ -24,11 +24,11 @@ class BranchDetailViewController: UIViewController {
     }()
     
     private let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-    lazy var menuArray = APPDELEGATE.dummy?.contents["코오롱디지털타워3차점"]
+    lazy var menuArray = APPDELEGATE.dummy?.contents[receiveBranchName]
     
-    var receiveAddress = "주소주소주소"
-    var receiveBranchName = "코오롱디지털타워3차점"
-    
+    var receiveAddress = ""
+    var receiveBranchName = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = receiveBranchName
@@ -39,9 +39,13 @@ class BranchDetailViewController: UIViewController {
     
     @objc private func didTapBackButtonItem(_ sender : Any) {
         self.navigationController?.popViewController(animated: true)
-//        dismiss(animated: true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        receiveBranchName = ""
+        receiveAddress = ""
+    }
 }
 
 extension BranchDetailViewController: UITableViewDataSource {
@@ -81,10 +85,26 @@ extension BranchDetailViewController: UITableViewDataSource {
 
 
 // MARK: - mapViewPin
-//extension BranchDetailViewController {
+extension BranchDetailViewController {
+    
+    func geocodeAddressString(_ addressString: String) {
+        print("\n---------- [ 주소 -> 위경도 ] ----------")
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placeMark, error) in
+            if error != nil {
+                return print(error!.localizedDescription)
+            }
+            guard let place = placeMark?.first else { return }
+            print(place)
+            
+            // 위경도값 가져오기
+            //      print(place.location?.coordinate)
+        }
+    }
+    
 //    let location = CLLocationCoordinate2D(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
 
-//}
+}
 
 // MARK: - Setup UI
 extension BranchDetailViewController {
