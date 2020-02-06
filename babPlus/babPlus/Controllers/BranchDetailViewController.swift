@@ -28,7 +28,7 @@ class BranchDetailViewController: UIViewController {
     
     var receiveAddress = ""
     var receiveBranchName = ""
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = receiveBranchName
