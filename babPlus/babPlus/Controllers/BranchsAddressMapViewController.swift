@@ -14,30 +14,39 @@ class BranchsAddressMapViewController: UIViewController {
     private let mapView = MKMapView()
     private let mapCenter = CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon)
     
-    private let pinList = [
-        "메타모르포점":"서울 성동구 성수일로 89 메타모르포",
-        "코오롱디지털타워3차점":"서울 성동구 아차산로 49 코오롱타워 3차",
-        "M타워점":"서울 성동구 뚝섬로1길 31 서울숲 M타워",
-        "세종타워점":"서울 성동구 성수일로10길 26 하우스디세종타워",
-        "SKV1":"서울 성동구 연무장5가길 25",
-        "Sol623타워점":"서울 성동구 상원1길 25",
-        "롯데 IT캐슬점":"서울 성동구 광나루로 130",
-        "에이팩 센터":"서울 성동구 아차산로7나길 18",
-        "성수타워점":"서울 성동구 성수이로10길 14",
-    ]
+    private var contents:BabMenu?
+    
+    private var pinNameList = [String]()
+    private var pinAddressList = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
         
-//        setRgion(coordinate: mapCenter)
-        attribute()
+//        setRgion()
+        requestData()
+        print("addressList: ",pinAddressList)
+        
         setupUI()
     }
     
-    private func setRgion(coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    private func requestData() {
+        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+//        let contents = APPDELEGATE.dummy!.self
+        contents = APPDELEGATE.dummy!.self 
+        contents!.contents.keys.forEach {
+            pinNameList.append($0)
+            pinAddressList.append((contents!.contents[$0]!.address))
+        }
+        print("keys: ",pinNameList)
+        
+
+    }
+    
+    private func setRgion() {
+        let coordinate = CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         
         mapView.setRegion(region, animated: true)
@@ -45,20 +54,54 @@ class BranchsAddressMapViewController: UIViewController {
     
     private func setupUI() {
         
-    }
-    
-    private func attribute() {
-        setRgion(coordinate: mapCenter)
-        setPin()
+        view.addSubview(mapView)
+        
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        setRgion()
+//        setPin()
+        
+        pinNameList.forEach {
+            
+            geocodeAddressString(address: contents!.contents[$0]!.address, title: $0)
+            print("address \(contents!.contents[$0]!.address), title: \($0)")
+        }
+        
+//        geocodeAddressString(address: "서울 성동구 뚝섬로1길 31", title: "M타워")
         
     }
     
-    private func setPin() {
-        pinList.forEach{
-            let setPoint = MKPointAnnotation()
-            setPoint.title = $0.key
-//            setPoint.coordinate = CLLocationCoordinate2D(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+    private func geocodeAddressString(address addressString: String, title titleString: String) {
+        print("\n---------- [ 주소 -> 위경도 ] ----------")
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placeMark, error) in
+            if error != nil {
+                return print(error!.localizedDescription)
+            }
+            guard let place = placeMark?.first else { return }
+            print(place)
+            
+            let coordinate = place.location?.coordinate
+            
+            self.setPin(title: titleString, coordinate: coordinate!)
+            
         }
+    }
+
+    
+    private func setPin(title: String, coordinate: CLLocationCoordinate2D) {
+
+        let setPoint = MKPointAnnotation()
+        setPoint.title = title
+        setPoint.coordinate = coordinate
+        mapView.addAnnotation(setPoint)
         
     }
  
