@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     lazy var collectionView = UICollectionView(frame: view.frame, collectionViewLayout: flowLayout)
     
     
-    private var contents:BabMenu?
+    private var contents: BabMenu?
     private var branchList = [String]()
     private var branchImagesURL = [String]()
     
@@ -137,7 +137,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let branchDetailVC = BranchDetailViewController()
-        branchDetailVC.modalPresentationStyle = .fullScreen
+//        branchDetailVC.modalPresentationStyle = .fullScreen
         
         branchDetailVC.receiveBranchName = branchList[indexPath.item]
         branchDetailVC.receiveAddress = (contents?.contents[branchList[indexPath.item]]?.address)!
@@ -171,7 +171,21 @@ extension MainViewController: UISearchBarDelegate {
                 if $0.contains(searchText) {
                     swapList.append($0)
                 }
+                
+                if let filterArray = contents!.contents[$0]?.menus.launch.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
+                    if !swapList.contains($0) {
+                        swapList.append($0)
+                    }
+                }
+                
+                if let filterArray = contents!.contents[$0]?.menus.dinner.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
+                    if !swapList.contains($0) {
+                        swapList.append($0)
+                    }
+                }
+            
             }
+            
             
             branchList.removeAll()
             branchImagesURL.removeAll()
