@@ -19,8 +19,8 @@ class MainViewController: UIViewController {
     
     private var contents:BabMenu?
     private var branchList = [String]()
-    //    private let branchImages = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
-    private let branchImages = [String]()
+        private let branchImages = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
+//    private let branchImages = [String]()
     
     lazy var itemCount = branchImages.count
     
