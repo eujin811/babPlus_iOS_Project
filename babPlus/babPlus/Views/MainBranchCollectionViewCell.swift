@@ -79,8 +79,18 @@ class MainBranchCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configure(branchImage image: UIImage?, branchName name: String) {
-        branchImage.image = image ?? (UIImage(named: "logo"))
+    func configure(branchImageURL imageURL: String, branchName name: String) {
+        if imageURL == "" {
+            branchImage.image = (UIImage(named: "logo"))
+        } else {
+            guard let url = URL(string: imageURL) else {
+                branchImage.image = (UIImage(named: "logo"))
+                return
+            }
+            let data = try! Data(contentsOf: url)
+            branchImage.image = UIImage(data: data)
+        }
+        
         branchName.text = name
     }
     

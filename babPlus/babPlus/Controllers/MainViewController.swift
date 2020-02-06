@@ -19,10 +19,10 @@ class MainViewController: UIViewController {
     
     private var contents:BabMenu?
     private var branchList = [String]()
-        private let branchImages = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
-//    private let branchImages = [String]()
+//  private let branchImagesURL = ["가게1", "가게2", "가게3", "가게4", "가게1", "가게2", "가게3", "가게4"]
+    private var branchImagesURL = [String]()
     
-    lazy var itemCount = branchImages.count
+    lazy var itemCount = branchImagesURL.count
     
     //    var tempData: BabMenu?
     
@@ -31,14 +31,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         requestData()
-        //        let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        //        contents = APPDELEGATE.dummy!.self as! BabMenu
         
-        //        print("data:",APPDELEGATE.dummy!.self)
-        //        print("data:",contents?.contents)
-        //        print("branchNAme:",contents?.contents.)
-        
-        //        request()
         searchBarSet()
         setupCollectionView()
         
@@ -53,42 +46,17 @@ class MainViewController: UIViewController {
         keys?.forEach {
             branchList.append($0)
         }
-        //        let contentsBody = contents?.contents.index(forKey: branchList[0])
-        var contentsBody = contents?.contents["세종타워점"]
-        //        var contentsBody2 = contents?.contents[branchList[0]]
         
-        //        contents?.contents.forEach {
-        //            print("\n content?.contents \($0)")
-        //        }
-        
+        //imageURL
         branchList.forEach {
             print("contents?.content[$0].image",contents?.contents[$0]?.image)
-            
+            print("image type ",type(of: contents?.contents[$0]?.image))
+            branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
         }
-        
-        
-        print("branchList[0]의 contents",contentsBody,"\n type: ",type(of: contentsBody))
         
         print("branchList: \(branchList)")
     }
     
-    //    private func request() {
-    //        OperationQueue().addOperation {
-    //            RequestHelper().reqTask {
-    //                self.tempData = $0
-    //                dump(self.tempData)
-    //
-    //                //            DispatchQueue.main.async {      //비동기 작업시 데이터를 가져오고 실제로 반영되는 ui작업한느 것들 DispatchMain에서 해줘야.
-    //                //                self.collectionView.reloadData()
-    //                //                print("request 완료", self.tempData ?? "실패")
-    //                //            }
-    //                OperationQueue.main.addOperation {
-    //                    print("완료",self.tempData!)
-    //                }
-    //            }
-    //        }
-    //
-    //    }
     
     
     private func searchBarSet() {
@@ -138,9 +106,9 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainBranchCollectionViewCell.identifier, for: indexPath) as! MainBranchCollectionViewCell
         cell.backgroundColor = .white
         
-        //                cell.configure(branchImage: UIImage(named: branchImages[indexPath.item]), branchName: branchImages[indexPath.item])
-        
-        cell.configure(branchImage: UIImage(named: branchImages[indexPath.item]), branchName: branchList[indexPath.item])
+
+
+        cell.configure(branchImageURL: branchImagesURL[indexPath.item], branchName: branchList[indexPath.item])
         
         
         return cell
@@ -158,6 +126,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         let branchDetailVC = BranchDetailViewController()
         branchDetailVC.modalPresentationStyle = .fullScreen
         //        present(branchDetailVC ,animated: true)
+        
+        /*
+         let receiveAddress = ""
+         let receiveBranchName = ""
+         */
+        
         self.navigationController?.pushViewController(branchDetailVC, animated: true)
     }
 }
