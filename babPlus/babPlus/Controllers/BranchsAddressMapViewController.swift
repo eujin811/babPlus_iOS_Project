@@ -31,19 +31,19 @@ class BranchsAddressMapViewController: UIViewController {
         setupUI()
     }
     
+    // MARK: API에서 받아온 데이터들
     private func requestData() {
         let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-//        let contents = APPDELEGATE.dummy!.self
-        contents = APPDELEGATE.dummy!.self 
+        contents = APPDELEGATE.dummy!.self
         contents!.contents.keys.forEach {
             pinNameList.append($0)
             pinAddressList.append((contents!.contents[$0]!.address))
         }
-        print("keys: ",pinNameList)
         
 
     }
     
+    // MARK: 지도 시작지점
     private func setRgion() {
         let coordinate = CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -52,6 +52,7 @@ class BranchsAddressMapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    // MARK:
     private func setupUI() {
         
         view.addSubview(mapView)
@@ -66,18 +67,17 @@ class BranchsAddressMapViewController: UIViewController {
         ])
         
         setRgion()
-//        setPin()
         
         pinNameList.forEach {
             
             geocodeAddressString(address: contents!.contents[$0]!.address, title: $0)
-            print("address \(contents!.contents[$0]!.address), title: \($0)")
         }
         
 //        geocodeAddressString(address: "서울 성동구 뚝섬로1길 31", title: "M타워")
         
     }
     
+    // MARK: 주소 위경도 변환
     private func geocodeAddressString(address addressString: String, title titleString: String) {
         print("\n---------- [ 주소 -> 위경도 ] ----------")
         let geocoder = CLGeocoder()
@@ -86,7 +86,6 @@ class BranchsAddressMapViewController: UIViewController {
                 return print(error!.localizedDescription)
             }
             guard let place = placeMark?.first else { return }
-            print(place)
             
             let coordinate = place.location?.coordinate
             
@@ -95,7 +94,7 @@ class BranchsAddressMapViewController: UIViewController {
         }
     }
 
-    
+    // MARK: Pin 셋팅
     private func setPin(title: String, coordinate: CLLocationCoordinate2D) {
 
         let setPoint = MKPointAnnotation()
