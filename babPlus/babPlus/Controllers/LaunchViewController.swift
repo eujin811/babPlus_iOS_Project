@@ -58,15 +58,14 @@ class LaunchViewController: UIViewController {
         let logoHegiht:CGFloat = 244
         let imagePadding:CGFloat = 30
         
-        let margin:CGFloat = 10
+        let margin:CGFloat = 50
         
-        let dishesYSet:CGFloat = 7
         
-        let forkWidht:CGFloat = 155
-        let forkHeight:CGFloat = 290
+        let dishiesWidht:CGFloat = 120
+        let spoonHeight:CGFloat = 230
+        let forkheight:CGFloat = 250
         
-        let spoonWidth:CGFloat = 160
-        let spoonHeight:CGFloat = 210
+
 
         
         [logoImage, forkImage, spoonImage].forEach {
@@ -79,17 +78,16 @@ class LaunchViewController: UIViewController {
             logoImage.widthAnchor.constraint(equalToConstant: logoWidth),
             logoImage.heightAnchor.constraint(equalToConstant: logoHegiht),
             
-            forkImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: dishesYSet),
-            forkImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(margin - 3)),
-//            forkImage.trailingAnchor.constraint(equalTo: logoImage.leadingAnchor, constant: imagePadding),
-            forkImage.widthAnchor.constraint(equalToConstant: forkWidht),
-            forkImage.heightAnchor.constraint(equalToConstant: forkHeight),
+            forkImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            forkImage.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: -margin),
+            forkImage.widthAnchor.constraint(equalToConstant: dishiesWidht),
+            forkImage.heightAnchor.constraint(equalToConstant: forkheight),
             
-            spoonImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dishesYSet),
-            spoonImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin - (spoonWidth - forkWidht)),
-//            spoonImage.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: imagePadding),
-            spoonImage.widthAnchor.constraint(equalToConstant: spoonWidth),
-            spoonImage.heightAnchor.constraint(equalToConstant: forkHeight)
+            spoonImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spoonImage.trailingAnchor.constraint(equalTo: logoImage.leadingAnchor, constant: margin),
+
+            spoonImage.widthAnchor.constraint(equalToConstant: dishiesWidht),
+            spoonImage.heightAnchor.constraint(equalToConstant: spoonHeight)
             
         ])
         NSLayoutConstraint.activate([
