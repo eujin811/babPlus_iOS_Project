@@ -63,6 +63,7 @@ class MainViewController: UIViewController {
     private func searchBarSet() {
 
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "메뉴, 가게명"
         self.navigationItem.searchController = searchController
     }
     
