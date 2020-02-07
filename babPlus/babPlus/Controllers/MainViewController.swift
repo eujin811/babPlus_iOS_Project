@@ -170,6 +170,7 @@ extension MainViewController: UISearchBarDelegate {
                     }
                 }
                 
+                
                 if let filterArray = contents!.contents[$0]?.menus.dinner.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
                     if !swapList.contains($0) {
                         swapList.append($0)
