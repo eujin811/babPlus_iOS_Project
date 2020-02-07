@@ -114,7 +114,6 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("-----------numberOfItemInSection---------------")
-        print("itemCount \(itemCount)")
         return itemCount
     }
     
@@ -124,8 +123,7 @@ extension MainViewController: UICollectionViewDataSource {
         cell.backgroundColor = .white
         
         cell.configure(branchImageURL: branchImagesURL[indexPath.item], branchName: branchList[indexPath.item])
-        print("--------------cellForItemAt---------------")
-        print("branchImageURL: \(branchImagesURL), branchName: \(branchList)")
+
         return cell
     }
     
@@ -162,12 +160,9 @@ extension MainViewController: UISearchBarDelegate {
             print(searchText.count)
             
             var swapList = [String]()
-            
-            print("branchList.contains",branchList.contains(searchText))
-            
+                        
             //            branchList.forEach {
             contents!.contents.keys.forEach {
-                print("branchList forEach",$0.contains(searchText))
                 if $0.contains(searchText) {
                     swapList.append($0)
                 }
@@ -182,7 +177,6 @@ extension MainViewController: UISearchBarDelegate {
             
             itemCount = branchImagesURL.count
             
-            print("branchList : \(branchList) \n branchImageURL: \(branchImagesURL)")
             collectionView.reloadData()
             //branchImagesURL
             
