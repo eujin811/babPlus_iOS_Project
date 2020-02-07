@@ -13,8 +13,8 @@ class BranchsAddressMapViewController: UIViewController {
     
     private let mapView = MKMapView()
     private let mapCenter = CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon)
-    
-    private var contents:BabMenu?
+    private let locationManager = CLLocationManager()
+    private var contents: BabMenu?
     
     private var pinNameList = [String]()
     private var pinAddressList = [String]()
@@ -22,10 +22,12 @@ class BranchsAddressMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        setRgion()
-        requestData()
-        print("addressList: ",pinAddressList)
+        requestData()        
+//        print("addressList: ",pinAddressList)
         mapView.delegate = self
+        mapView.showsUserLocation = true
+        locationManager.delegate = self
+        checkAuthorizationStatus()
         setupUI()
     }
     
@@ -33,6 +35,31 @@ class BranchsAddressMapViewController: UIViewController {
         super.viewWillAppear(true)
         navigationController?.isNavigationBarHidden = true
     }
+    
+    private func checkAuthorizationStatus() {
+      switch CLLocationManager.authorizationStatus() {
+      case .notDetermined:
+          locationManager.requestWhenInUseAuthorization()
+      case .restricted, .denied:
+          break
+      case .authorizedWhenInUse:
+          fallthrough
+      case .authorizedAlways:
+          startUpdatingLocation()
+      @unknown default:
+          break
+      }
+    }
+    
+    private func startUpdatingLocation() {
+        let status = CLLocationManager.authorizationStatus()
+        guard status == .authorizedWhenInUse || status == .authorizedAlways else { return }
+        guard CLLocationManager.locationServicesEnabled() else { return }
+        
+        //10 미터 이동시마다 재설정
+        locationManager.startUpdatingLocation()
+        
+      }
     
     // MARK: API에서 받아온 데이터들
     private func requestData() {
@@ -42,14 +69,15 @@ class BranchsAddressMapViewController: UIViewController {
             pinNameList.append($0)
             pinAddressList.append((contents!.contents[$0]!.address))
         }
-        
+        print(pinNameList.count)
+        print(pinAddressList.count)
 
     }
     
     // MARK: 지도 시작지점
-    private func setRgion() {
-        let coordinate = CLLocationCoordinate2DMake(mapCenterlat, mapCenterlon)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    private func setRegion() {
+        let coordinate = CLLocationCoordinate2DMake(37.5469894, 127.0513373)
+        let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         
         mapView.setRegion(region, animated: true)
@@ -57,9 +85,7 @@ class BranchsAddressMapViewController: UIViewController {
     
     // MARK:
     private func setupUI() {
-        
         view.addSubview(mapView)
-        
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -69,42 +95,31 @@ class BranchsAddressMapViewController: UIViewController {
             mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        setRgion()
-        
+        setRegion()
         pinNameList.forEach {
-            
             geocodeAddressString(address: contents!.contents[$0]!.address, title: $0)
         }
-        
-//        geocodeAddressString(address: "서울 성동구 뚝섬로1길 31", title: "M타워")
-        
     }
     
     // MARK: 주소 위경도 변환
     private func geocodeAddressString(address addressString: String, title titleString: String) {
-        print("\n---------- [ 주소 -> 위경도 ] ----------")
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placeMark, error) in
             if error != nil {
                 return print(error!.localizedDescription)
             }
             guard let place = placeMark?.first else { return }
-            
             let coordinate = place.location?.coordinate
-            
             self.setPin(title: titleString, coordinate: coordinate!)
-            
         }
     }
 
     // MARK: Pin 셋팅
     private func setPin(title: String, coordinate: CLLocationCoordinate2D) {
-
         let setPoint = MKPointAnnotation()
         setPoint.title = title
         setPoint.coordinate = coordinate
         mapView.addAnnotation(setPoint)
-        
     }
  
 
@@ -120,4 +135,15 @@ extension BranchsAddressMapViewController: MKMapViewDelegate {
         navigationController?.pushViewController(DetailVC, animated: true)
     }
     
+}
+
+extension BranchsAddressMapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("Authorized")
+        default:
+            print("Unauthorized")
+        }
+    }
 }
