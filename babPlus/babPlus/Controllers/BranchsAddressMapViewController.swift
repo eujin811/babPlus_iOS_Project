@@ -22,13 +22,16 @@ class BranchsAddressMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
-        
 //        setRgion()
         requestData()
         print("addressList: ",pinAddressList)
-        
+        mapView.delegate = self
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = true
     }
     
     // MARK: API에서 받아온 데이터들
@@ -105,4 +108,16 @@ class BranchsAddressMapViewController: UIViewController {
     }
  
 
+}
+
+extension BranchsAddressMapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let _title = view.annotation?.title, let title = _title, let index = pinNameList.firstIndex(of: title)  else { return }
+        let DetailVC = BranchDetailViewController()
+        DetailVC.receiveBranchName = title
+        DetailVC.receiveAddress = pinAddressList[index]
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(DetailVC, animated: true)
+    }
+    
 }
