@@ -17,6 +17,7 @@ class BranchDetailViewController: UIViewController {
         mapView.setRegion(region, animated: true)
         return mapView
     }()
+    
     private let mapContainerView = UIView()
     private let menuTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -25,7 +26,6 @@ class BranchDetailViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
-        
         return tableView
     }()
     

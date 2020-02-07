@@ -23,7 +23,6 @@ class BranchsAddressMapViewController: UIViewController {
         super.viewDidLoad()
         
         requestData()        
-//        print("addressList: ",pinAddressList)
         mapView.delegate = self
         mapView.showsUserLocation = true
         locationManager.delegate = self
@@ -69,8 +68,6 @@ class BranchsAddressMapViewController: UIViewController {
             pinNameList.append($0)
             pinAddressList.append((contents!.contents[$0]!.address))
         }
-        print(pinNameList.count)
-        print(pinAddressList.count)
 
     }
     

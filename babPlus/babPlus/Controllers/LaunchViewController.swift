@@ -10,6 +10,8 @@ import UIKit
 
 class LaunchViewController: UIViewController {
     let APPDELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+//    let APPDELEGATE = UIApplication.shared.delegate as!
+//    AppDelegate
     
     private let logoImage = UIImageView()
     private let forkImage = UIImageView()
