@@ -21,7 +21,7 @@ class BranchDetailViewController: UIViewController {
     private let mapContainerView = UIView()
     private let menuTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.rowHeight = 50
+        tableView.rowHeight = 45
         tableView.sectionHeaderHeight = 65
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
         tableView.allowsSelection = false
@@ -128,7 +128,7 @@ extension BranchDetailViewController: UITableViewDataSource {
         } else {
             cell.textLabel?.text = menuArray!.menus.dinner[indexPath.row]
         }
-        cell.textLabel?.font = .systemFont(ofSize: 20)
+        cell.textLabel?.font = .systemFont(ofSize: 15)
         return cell
     }
 }
