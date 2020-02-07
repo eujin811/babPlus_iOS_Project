@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         requestData()
-        
+        navigationItem.title = "밥플러스 마이너스"
         searchBarSet()
         setupCollectionView()
         
@@ -113,7 +113,6 @@ class MainViewController: UIViewController {
 // MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("-----------numberOfItemInSection---------------")
         return itemCount
     }
     
@@ -123,7 +122,6 @@ extension MainViewController: UICollectionViewDataSource {
         cell.backgroundColor = .white
         
         cell.configure(branchImageURL: branchImagesURL[indexPath.item], branchName: branchList[indexPath.item])
-
         return cell
     }
     
@@ -156,12 +154,11 @@ extension MainViewController: UISearchBarDelegate {
         
         
         if searchText.count >= 2 {
-            print(searchText)
-            print(searchText.count)
+//            print(searchText)
+//            print(searchText.count)
             
             var swapList = [String]()
-                        
-            //            branchList.forEach {
+
             contents!.contents.keys.forEach {
                 if $0.contains(searchText) {
                     swapList.append($0)
@@ -173,6 +170,7 @@ extension MainViewController: UISearchBarDelegate {
                     }
                 }
                 
+                
                 if let filterArray = contents!.contents[$0]?.menus.dinner.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
                     if !swapList.contains($0) {
                         swapList.append($0)
@@ -180,7 +178,6 @@ extension MainViewController: UISearchBarDelegate {
                 }
             
             }
-            
             
             branchList.removeAll()
             branchImagesURL.removeAll()

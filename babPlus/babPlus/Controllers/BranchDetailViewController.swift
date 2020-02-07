@@ -21,7 +21,7 @@ class BranchDetailViewController: UIViewController {
     private let menuTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.rowHeight = 50
-        tableView.sectionHeaderHeight = 60
+        tableView.sectionHeaderHeight = 65
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
