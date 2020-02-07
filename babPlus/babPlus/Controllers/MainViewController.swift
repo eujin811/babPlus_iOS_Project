@@ -31,6 +31,8 @@ class MainViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         collectionViewInitialization()
+        navigationItem.searchController?.isActive = false
+
     }
     
     
@@ -135,7 +137,7 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         
-
+        navigationItem.searchController?.isActive = false
         if searchText.count >= 2 {
             var swapList = [String]()
 
@@ -173,6 +175,9 @@ extension MainViewController: UISearchBarDelegate {
             //branchImagesURL
         }
     }
+    
+
+    
     
     // MARK: - cancel
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
