@@ -13,30 +13,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        //
         let tabBar = UITabBarController()
-        
+
         let mainVC = MainViewController()
         let mapMainVC = BranchsAddressMapViewController()
-        
-        
+
+
         let mainNaviController = UINavigationController(rootViewController: mainVC)
         let mapNaviController = UINavigationController(rootViewController: mapMainVC)
-        
+
         mainNaviController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
         mapNaviController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map.fill"), tag: 1)
-        
-        
-        
+
+
+
         tabBar.viewControllers = [mainNaviController, mapNaviController]
-        
+
         window?.rootViewController = tabBar
         window?.makeKeyAndVisible()
+        
+//        let launchScreen = LaunchViewController()
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.rootViewController = launchScreen
+//        window?.backgroundColor = .systemBackground
+//        window?.makeKeyAndVisible()
         
         return true
     }

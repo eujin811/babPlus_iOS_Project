@@ -9,21 +9,14 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    
     private let searchController = UISearchController(searchResultsController: nil)
-    
     private let flowLayout = UICollectionViewFlowLayout()
-    lazy var collectionView = UICollectionView(frame: view.frame, collectionViewLayout: flowLayout)
-    
-    
     private var contents: BabMenu?
     private var branchList = [String]()
     private var branchImagesURL = [String]()
     
+    lazy var collectionView = UICollectionView(frame: view.frame, collectionViewLayout: flowLayout)
     lazy var itemCount = branchImagesURL.count
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +29,10 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
+        super.viewDidDisappear(true)
         collectionViewInitialization()
         navigationItem.searchController?.isActive = false
+
     }
     
     
@@ -48,16 +41,12 @@ class MainViewController: UIViewController {
         contents = APPDELEGATE.dummy!.self
         
         let keys = contents?.contents.keys
-        
-        keys?.forEach {
-            branchList.append($0)
-        }
-        
-        //imageURL
-        branchList.forEach {
-            branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
-        }
-        
+        branchList = Array(keys!)
+        branchImagesURL = keys!.map { contents?.contents[$0]?.image ?? "" }
+//        keys?.forEach {
+//            branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
+//        }
+       itemCount = branchImagesURL.count
     }
     
     // MARK: - collectionView 초기화
@@ -66,8 +55,6 @@ class MainViewController: UIViewController {
         branchImagesURL.removeAll()
         
         requestData()
-        
-        itemCount = branchImagesURL.count
         
         collectionView.reloadData()
     }
@@ -99,7 +86,6 @@ class MainViewController: UIViewController {
         
         let contentWidth:CGFloat = frameWidth - (margin * 2) - (padding * (itemCount - 1))
         let itemWidth:CGFloat = (contentWidth / itemCount).rounded(.down)
-        
         
         flowLayout.minimumInteritemSpacing = padding
         flowLayout.minimumLineSpacing = padding
@@ -133,7 +119,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let branchDetailVC = BranchDetailViewController()
-//        branchDetailVC.modalPresentationStyle = .fullScreen
         
         branchDetailVC.receiveBranchName = branchList[indexPath.item]
         branchDetailVC.receiveAddress = (contents?.contents[branchList[indexPath.item]]?.address)!
@@ -153,12 +138,7 @@ extension MainViewController: UISearchBarDelegate {
         guard let searchText = searchBar.text else { return }
         
         navigationItem.searchController?.isActive = false
-
-        
         if searchText.count >= 2 {
-//            print(searchText)
-//            print(searchText.count)
-            
             var swapList = [String]()
 
             contents!.contents.keys.forEach {
@@ -166,13 +146,13 @@ extension MainViewController: UISearchBarDelegate {
                     swapList.append($0)
                 }
                 
-                if let filterArray = contents!.contents[$0]?.menus.launch.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
+                if let filterArray = contents!.contents[$0]?.menus.lunch.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
                     if !swapList.contains($0) {
                         swapList.append($0)
                     }
                 }
                 
-                
+
                 if let filterArray = contents!.contents[$0]?.menus.dinner.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
                     if !swapList.contains($0) {
                         swapList.append($0)
@@ -183,17 +163,16 @@ extension MainViewController: UISearchBarDelegate {
             
             branchList.removeAll()
             branchImagesURL.removeAll()
-            swapList.forEach {
-                branchList.append($0)
-                branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
-            }
-            
+            branchList = swapList
+            branchImagesURL = branchList.map { contents?.contents[$0]?.image ?? "" }
+//            swapList.forEach {
+//                branchImagesURL.append((contents?.contents[$0]?.image ?? ""))
+//            }
+    
             itemCount = branchImagesURL.count
             
             collectionView.reloadData()
             //branchImagesURL
-            
-            
         }
     }
     

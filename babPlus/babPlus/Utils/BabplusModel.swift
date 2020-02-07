@@ -22,5 +22,5 @@ struct Content: Codable {
 
 // MARK: - Menu
 struct Menus: Codable {
-    let launch, dinner: [String]
+    let lunch, dinner: [String]
 }
