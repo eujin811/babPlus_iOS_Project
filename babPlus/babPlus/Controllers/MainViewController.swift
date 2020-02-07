@@ -146,7 +146,7 @@ extension MainViewController: UISearchBarDelegate {
                     swapList.append($0)
                 }
                 
-                if let filterArray = contents!.contents[$0]?.menus.launch.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
+                if let filterArray = contents!.contents[$0]?.menus.lunch.filter({ element in element.contains(searchText) }), !filterArray.isEmpty {
                     if !swapList.contains($0) {
                         swapList.append($0)
                     }

@@ -106,13 +106,13 @@ extension BranchDetailViewController: UITableViewDelegate {
 //MARK: - TableViewDelegate
 extension BranchDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionCheck = section == 0 ? menuArray!.menus.launch.count : menuArray!.menus.dinner.count
+        let sectionCheck = section == 0 ? menuArray!.menus.lunch.count : menuArray!.menus.dinner.count
         return sectionCheck
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         var sectionCount = 0
-        if !menuArray!.menus.launch.isEmpty {
+        if !menuArray!.menus.lunch.isEmpty {
             sectionCount += 1
         }
         if !menuArray!.menus.dinner.isEmpty {
@@ -124,7 +124,7 @@ extension BranchDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
         if indexPath.section == 0 {
-            cell.textLabel?.text = menuArray!.menus.launch[indexPath.row]
+            cell.textLabel?.text = menuArray!.menus.lunch[indexPath.row]
         } else {
             cell.textLabel?.text = menuArray!.menus.dinner[indexPath.row]
         }
