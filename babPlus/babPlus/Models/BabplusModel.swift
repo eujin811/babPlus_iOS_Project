@@ -2,25 +2,28 @@
 //  BabplusModel.swift
 //  babPlus
 //
-//  Created by Hongdonghyun on 2020/02/05.
+//  Created by Hongdonghyun on 2020/02/17.
 //  Copyright © 2020 YoujinMac. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - BabMenu
-struct BabMenu: Decodable {        
+struct BabMenu: Decodable {
     let date: String
-    let contents: [String: Content]
+    let contents: [Content]
 }
 
-struct Content: Codable {
+// MARK: - Content
+struct Content: Decodable {
+    let name, lat, lon, tag: String
     let image: String?
     let address: String
     let menus: Menus
+    
 }
 
 // MARK: - Menu
-struct Menus: Codable {
+struct Menus: Decodable {
     let lunch, dinner: [String]
 }

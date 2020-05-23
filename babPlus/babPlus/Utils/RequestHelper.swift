@@ -8,40 +8,33 @@
 
 import Foundation
 
-// Usage
-//RequestHelper().reqTask(path: "menu", method: "GET") {
-//    (result) in
-//    dump(result)
-//}
-
 // MARK: - Request Struct
 struct RequestHelper {
-    var base_url = "https://1cr8sgkm6e.execute-api.ap-northeast-2.amazonaws.com/prod/"
-    
     private func request(urlPath path:String, method: String) -> URLRequest? {
-        guard let url = URL(string: base_url + path) else { return nil }
+        guard let url = URL(string: Constants.base_url + path) else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")    //json형식으로
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
-    
-    //@escaping 한 이유는 completion이 비동기 형태임으로 데이터 다 불러오면 (BabMenu) -> () 실행
-     //BabMenu, Content Decodable형태 byte Type -> dataType으로 전환 (dataType -> byte Type으로 전환할 필요가 없으므로 encodable로 사용 안함.)
+
     func reqTask(path: String = "menu", method: String = "GET", completion: @escaping (BabMenu) -> ()) {
+        print("1. call reqTask")
         let task = URLSession.shared.dataTask(with: RequestHelper().request(urlPath: path, method: method)!) {
             data, response, error in
             if let res = response as? HTTPURLResponse {
-                if res.statusCode == 200 {
-                    if let data = data, let body = try? JSONDecoder().decode(BabMenu.self, from: data) {
+                if (200..<300).contains(res.statusCode) {
+                    if let data = data, let body = try?
+                        JSONDecoder().decode(BabMenu.self, from: data) {
+                        print("2. before completion")
                         completion(body)
-                    }
-                }
-            } else {
-                print("Error")
-            }
+                        print("3. after completion")
+                    } else { print("parse Error") }
+                } else { print("Server Error")}
+            } else { print("Error") }
             
         }
         task.resume()
+        print("4. end reqTask")
     }
 }
