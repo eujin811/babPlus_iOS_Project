@@ -7,11 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C23ABEF23FE7BCC00B467B3 /* UserDefaultModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23ABEE23FE7BCC00B467B3 /* UserDefaultModels.swift */; };
+		7C286EB723F6521C0048D2CE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C286EB623F6521C0048D2CE /* SettingViewController.swift */; };
+		7C38155D23F6903E0077C214 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C38155C23F6903E0077C214 /* SettingTableViewCell.swift */; };
+		7C38156023F6944D0077C214 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C38155F23F6944D0077C214 /* FavoriteViewController.swift */; };
+		7C4055BE23FAA5A900B83E3C /* BabplusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4055BD23FAA5A900B83E3C /* BabplusModel.swift */; };
+		7C4055C023FAA5C900B83E3C /* SettingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4055BF23FAA5C900B83E3C /* SettingModels.swift */; };
+		7C482F0223FF75D800518C40 /* BabplusImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C482F0123FF75D800518C40 /* BabplusImageView.swift */; };
+		7C529C0923FCE8DF00074837 /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C529C0823FCE8DF00074837 /* SubscribeViewController.swift */; };
 		7C64833423EBAD640011D1BB /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C64833323EBAD640011D1BB /* LaunchViewController.swift */; };
+		7C862A6A23FCFBBE00C7C82F /* SubscribeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C862A6923FCFBBE00C7C82F /* SubscribeCollectionCell.swift */; };
+		7C862A6D23FCFDE300C7C82F /* BabplusLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C862A6C23FCFDE300C7C82F /* BabplusLabel.swift */; };
+		7C862A6F23FD362400C7C82F /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C862A6E23FD362400C7C82F /* ToastMessage.swift */; };
+		7C8CA51023FB9658009659D0 /* IndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8CA50F23FB9658009659D0 /* IndicatorCell.swift */; };
+		7C8CA51223FB966F009659D0 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8CA51123FB966F009659D0 /* SwitchCell.swift */; };
+		7C9DCA5123F4FA2E00141077 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9DCA5023F4FA2E00141077 /* Extensions.swift */; };
+		7CADFB1223F54EC000C64FB5 /* UserDefaultHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CADFB1123F54EC000C64FB5 /* UserDefaultHelper.swift */; };
+		7CCBB6DD23FBE8C2003153C7 /* DislikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCBB6DC23FBE8C2003153C7 /* DislikeViewController.swift */; };
+		7CFC6DD823FF6E10002E201C /* SubscribeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC6DD723FF6E10002E201C /* SubscribeCollectionView.swift */; };
 		7CFF655423EA911600D63D86 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFF655323EA911600D63D86 /* RequestHelper.swift */; };
-		7CFF655623EA916200D63D86 /* BabplusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFF655523EA916200D63D86 /* BabplusModel.swift */; };
 		961C1B4323E85379009520A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B4223E85379009520A5 /* AppDelegate.swift */; };
-		961C1B4523E85379009520A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B4423E85379009520A5 /* SceneDelegate.swift */; };
 		961C1B4723E85379009520A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B4623E85379009520A5 /* MainViewController.swift */; };
 		961C1B4A23E85379009520A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 961C1B4823E85379009520A5 /* Main.storyboard */; };
 		961C1B4C23E8537B009520A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961C1B4B23E8537B009520A5 /* Assets.xcassets */; };
@@ -19,16 +34,31 @@
 		961C1B5A23E8567C009520A5 /* BranchsAddressMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B5923E8567C009520A5 /* BranchsAddressMapViewController.swift */; };
 		961C1B5C23E8583A009520A5 /* BranchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B5B23E8583A009520A5 /* BranchDetailViewController.swift */; };
 		961C1B5E23E98831009520A5 /* MainBranchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B5D23E98831009520A5 /* MainBranchCollectionViewCell.swift */; };
-		961C1B6123EA8C3B009520A5 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B6023EA8C3B009520A5 /* constants.swift */; };
+		961C1B6123EA8C3B009520A5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C1B6023EA8C3B009520A5 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C23ABEE23FE7BCC00B467B3 /* UserDefaultModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultModels.swift; sourceTree = "<group>"; };
+		7C286EB623F6521C0048D2CE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		7C38155C23F6903E0077C214 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		7C38155F23F6944D0077C214 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		7C4055BD23FAA5A900B83E3C /* BabplusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabplusModel.swift; sourceTree = "<group>"; };
+		7C4055BF23FAA5C900B83E3C /* SettingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModels.swift; sourceTree = "<group>"; };
+		7C482F0123FF75D800518C40 /* BabplusImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabplusImageView.swift; sourceTree = "<group>"; };
+		7C529C0823FCE8DF00074837 /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
 		7C64833323EBAD640011D1BB /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		7C862A6923FCFBBE00C7C82F /* SubscribeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeCollectionCell.swift; sourceTree = "<group>"; };
+		7C862A6C23FCFDE300C7C82F /* BabplusLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabplusLabel.swift; sourceTree = "<group>"; };
+		7C862A6E23FD362400C7C82F /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
+		7C8CA50F23FB9658009659D0 /* IndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorCell.swift; sourceTree = "<group>"; };
+		7C8CA51123FB966F009659D0 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		7C9DCA5023F4FA2E00141077 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7CADFB1123F54EC000C64FB5 /* UserDefaultHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultHelper.swift; sourceTree = "<group>"; };
+		7CCBB6DC23FBE8C2003153C7 /* DislikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DislikeViewController.swift; sourceTree = "<group>"; };
+		7CFC6DD723FF6E10002E201C /* SubscribeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeCollectionView.swift; sourceTree = "<group>"; };
 		7CFF655323EA911600D63D86 /* RequestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
-		7CFF655523EA916200D63D86 /* BabplusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BabplusModel.swift; path = babPlus/Utils/BabplusModel.swift; sourceTree = SOURCE_ROOT; };
 		961C1B3F23E85379009520A5 /* babPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = babPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		961C1B4223E85379009520A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		961C1B4423E85379009520A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		961C1B4623E85379009520A5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		961C1B4923E85379009520A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		961C1B4B23E8537B009520A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,7 +67,7 @@
 		961C1B5923E8567C009520A5 /* BranchsAddressMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchsAddressMapViewController.swift; sourceTree = "<group>"; };
 		961C1B5B23E8583A009520A5 /* BranchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchDetailViewController.swift; sourceTree = "<group>"; };
 		961C1B5D23E98831009520A5 /* MainBranchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBranchCollectionViewCell.swift; sourceTree = "<group>"; };
-		961C1B6023EA8C3B009520A5 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		961C1B6023EA8C3B009520A5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +81,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C38155E23F694390077C214 /* SettingsController */ = {
+			isa = PBXGroup;
+			children = (
+				7C529C0823FCE8DF00074837 /* SubscribeViewController.swift */,
+				7C38155F23F6944D0077C214 /* FavoriteViewController.swift */,
+				7CCBB6DC23FBE8C2003153C7 /* DislikeViewController.swift */,
+			);
+			path = SettingsController;
+			sourceTree = "<group>";
+		};
+		7C4055BC23FAA59600B83E3C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7C4055BD23FAA5A900B83E3C /* BabplusModel.swift */,
+				7C4055BF23FAA5C900B83E3C /* SettingModels.swift */,
+				7C23ABEE23FE7BCC00B467B3 /* UserDefaultModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7C862A6B23FCFDB600C7C82F /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				961C1B5D23E98831009520A5 /* MainBranchCollectionViewCell.swift */,
+				7C8CA50F23FB9658009659D0 /* IndicatorCell.swift */,
+				7C8CA51123FB966F009659D0 /* SwitchCell.swift */,
+				7C862A6C23FCFDE300C7C82F /* BabplusLabel.swift */,
+				7C482F0123FF75D800518C40 /* BabplusImageView.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		7CCBB6DE23FBEF46003153C7 /* SettingViews */ = {
+			isa = PBXGroup;
+			children = (
+				7C38155C23F6903E0077C214 /* SettingTableViewCell.swift */,
+				7C862A6923FCFBBE00C7C82F /* SubscribeCollectionCell.swift */,
+				7CFC6DD723FF6E10002E201C /* SubscribeCollectionView.swift */,
+			);
+			path = SettingViews;
+			sourceTree = "<group>";
+		};
 		961C1B3623E85379009520A5 = {
 			isa = PBXGroup;
 			children = (
@@ -71,9 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				961C1B4223E85379009520A5 /* AppDelegate.swift */,
-				961C1B4423E85379009520A5 /* SceneDelegate.swift */,
+				7C4055BC23FAA59600B83E3C /* Models */,
 				961C1B5F23EA8BDC009520A5 /* Utils */,
-				961C1B5623E855BA009520A5 /* Models */,
 				961C1B5823E855D6009520A5 /* Views */,
 				961C1B5723E855C5009520A5 /* Controllers */,
 				961C1B4823E85379009520A5 /* Main.storyboard */,
@@ -84,21 +155,15 @@
 			path = babPlus;
 			sourceTree = "<group>";
 		};
-		961C1B5623E855BA009520A5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7CFF655523EA916200D63D86 /* BabplusModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		961C1B5723E855C5009520A5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7C38155E23F694390077C214 /* SettingsController */,
 				961C1B4623E85379009520A5 /* MainViewController.swift */,
 				961C1B5923E8567C009520A5 /* BranchsAddressMapViewController.swift */,
 				961C1B5B23E8583A009520A5 /* BranchDetailViewController.swift */,
 				7C64833323EBAD640011D1BB /* LaunchViewController.swift */,
+				7C286EB623F6521C0048D2CE /* SettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -106,7 +171,8 @@
 		961C1B5823E855D6009520A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				961C1B5D23E98831009520A5 /* MainBranchCollectionViewCell.swift */,
+				7C862A6B23FCFDB600C7C82F /* CustomUI */,
+				7CCBB6DE23FBEF46003153C7 /* SettingViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,8 +180,11 @@
 		961C1B5F23EA8BDC009520A5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				961C1B6023EA8C3B009520A5 /* constants.swift */,
+				961C1B6023EA8C3B009520A5 /* Constants.swift */,
 				7CFF655323EA911600D63D86 /* RequestHelper.swift */,
+				7C9DCA5023F4FA2E00141077 /* Extensions.swift */,
+				7CADFB1123F54EC000C64FB5 /* UserDefaultHelper.swift */,
+				7C862A6E23FD362400C7C82F /* ToastMessage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -191,16 +260,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C4055C023FAA5C900B83E3C /* SettingModels.swift in Sources */,
 				961C1B5C23E8583A009520A5 /* BranchDetailViewController.swift in Sources */,
+				7CFC6DD823FF6E10002E201C /* SubscribeCollectionView.swift in Sources */,
+				7C862A6D23FCFDE300C7C82F /* BabplusLabel.swift in Sources */,
+				7CCBB6DD23FBE8C2003153C7 /* DislikeViewController.swift in Sources */,
 				7C64833423EBAD640011D1BB /* LaunchViewController.swift in Sources */,
 				961C1B5A23E8567C009520A5 /* BranchsAddressMapViewController.swift in Sources */,
+				7C38155D23F6903E0077C214 /* SettingTableViewCell.swift in Sources */,
+				7C482F0223FF75D800518C40 /* BabplusImageView.swift in Sources */,
 				961C1B4723E85379009520A5 /* MainViewController.swift in Sources */,
-				961C1B6123EA8C3B009520A5 /* constants.swift in Sources */,
+				7C862A6A23FCFBBE00C7C82F /* SubscribeCollectionCell.swift in Sources */,
+				961C1B6123EA8C3B009520A5 /* Constants.swift in Sources */,
+				7C4055BE23FAA5A900B83E3C /* BabplusModel.swift in Sources */,
+				7C9DCA5123F4FA2E00141077 /* Extensions.swift in Sources */,
 				961C1B5E23E98831009520A5 /* MainBranchCollectionViewCell.swift in Sources */,
-				7CFF655623EA916200D63D86 /* BabplusModel.swift in Sources */,
+				7C862A6F23FD362400C7C82F /* ToastMessage.swift in Sources */,
+				7CADFB1223F54EC000C64FB5 /* UserDefaultHelper.swift in Sources */,
+				7C8CA51023FB9658009659D0 /* IndicatorCell.swift in Sources */,
+				7C38156023F6944D0077C214 /* FavoriteViewController.swift in Sources */,
 				961C1B4323E85379009520A5 /* AppDelegate.swift in Sources */,
-				961C1B4523E85379009520A5 /* SceneDelegate.swift in Sources */,
+				7C23ABEF23FE7BCC00B467B3 /* UserDefaultModels.swift in Sources */,
 				7CFF655423EA911600D63D86 /* RequestHelper.swift in Sources */,
+				7C8CA51223FB966F009659D0 /* SwitchCell.swift in Sources */,
+				7C286EB723F6521C0048D2CE /* SettingViewController.swift in Sources */,
+				7C529C0923FCE8DF00074837 /* SubscribeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,11 +431,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = babPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.com.YoujinMack.babPlus.babPlus;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hongdonghyun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -365,11 +450,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = babPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.com.YoujinMack.babPlus.babPlus;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hongdonghyun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
